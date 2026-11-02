@@ -1,0 +1,37 @@
+---
+layout: runbook
+title: '0002 · Merge reports only when the cause matches'
+owner: szleski
+status: proposed
+reviewed: '2026-11-02'
+signature: 'Codex for Szymon Łęski · S01E03 · 2026-11-02'
+---
+
+<script>
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+**Proposed on:** 2 November 2026. **Replaces on acceptance:** [decision 0001](/kb/decisions/0001-dedupe-by-subject/).
+Desk acceptance has not been recorded. The accepted historical decision is preserved unchanged.
+
+## Context
+
+The [incident review](/kb/incidents/4471-review/) shows that one merged ticket contains separate parser and form-hint problems.
+The existing triage prose uses normalized subjects, while its executable examples use tenant configuration and channel.
+This can hide different bugs under one title and split the same bug across different titles.
+
+## Proposed decision
+
+Merge reports only when the available evidence establishes the same cause. Resolve tenant configuration and channel first;
+for this product, use the locale order and form version in the supplied cause model. Read bodies for evidence that falls outside that model.
+An unknown tenant or unexplained symptom stays separate for investigation. Deduplicate export rows by report ID before counting.
+
+## Consequences
+
+- The parser and booking-v3 hint receive separate engineering tickets and separate report counts.
+- Subjects and browser tags help find reports but do not decide cause.
+- Investigation takes more work at intake and prevents a second cause disappearing into a known ticket.
+- Every page distinguishes reported symptoms, model-based classification, verified fixes, and remaining uncertainty.
+- Computable counts stay in components; prose is reviewed against the rendered page and dated.
+
+<RenderStamp {signature} />

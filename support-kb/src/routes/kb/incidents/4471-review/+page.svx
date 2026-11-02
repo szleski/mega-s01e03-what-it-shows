@@ -1,0 +1,81 @@
+---
+layout: runbook
+title: '#4471 review · separate the causes before merging'
+owner: szleski
+status: reviewed
+reviewed: '2026-11-02'
+signature: 'Codex for Szymon Łęski · S01E03 · 2026-11-02'
+---
+
+<script>
+  import IncidentReview from '#lib/kb/IncidentReview.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+</script>
+
+The [original incident](/kb/incidents/4471/) calls this one known issue with one queued fix.
+Its rendered cause table contradicts that conclusion: the shared parser and the booking form hint are separate problems.
+Each needs its own engineering ticket. This review describes the supplied export through 4 October 2026;
+it does not establish the current state of a live production service or claim that either fix shipped.
+
+<Callout kind="warn">
+Read the generated evidence before relying on the page's prose. “Known” is a desk status, not proof that all causes have tickets or fixes.
+</Callout>
+
+## Count by report ID, classify by tenant and entry path
+
+<IncidentReview />
+
+The calculation follows `uniqueById` and `groupByCause` in `src/lib/kb/causes.ts`, joined to the tenant directory through `locales.ts`.
+`Intl.DateTimeFormat(...).formatToParts(...)` determines day-first locale order. Neither a browser locale nor `meta.intakeTag` identifies the tenant's configured date convention.
+
+## Two failure paths, two tickets
+
+**Shared parser.** For day-first tenants, the shared parser assumes month first.
+This covers app and email reports, plus form reports through booking-v2. For example, `R-41200`
+describes 7 April becoming 4 July. `R-41205` belongs here because Morrow Tax is configured as `fr-FR`,
+even though its browser reports `en-US` and intake guessed `hint`.
+Correct the parser's explicit date-format contract and verify ambiguous day/month inputs, invalid dates, and month-first controls.
+
+**Wrong booking-v3 hint.** For a day-first tenant using booking-v3, the form prints `MM/DD/YYYY`
+while interpreting the typed value using the tenant's convention. Only the form channel takes this path.
+For example, `R-41230` comes through Copper Studio's booking-v3 form (`es-ES`), although intake calls it `parser`.
+Correct the displayed hint and its agreement with validation and parsing. Changing the shared parser alone does not correct misleading form guidance.
+
+These mechanisms come from the supplied executable model and tenant configuration. The export contains no production parser or form implementation to patch or independently reproduce.
+
+## Read the queue in the right order
+
+<QueueTimeline ticket={4471} />
+
+The weekly plot uses `receivedAt` for arrivals and `mergedAt` for desk merges. Reports accumulated before the large July merge.
+An administrative burst must not be described as an incident onset. The export continues receiving reports after the bulk merge;
+the page's confident “one fix queued” wording hid an unresolved second workstream.
+
+## Triage by cause; keep unknown cases apart
+
+The [old triage page](/kb/triage/dedupe/) instructs the desk to merge matching subjects, but its own explorer does not implement that rule.
+Its review date is stale under the shared layout's review policy. A familiar title and an accepted status do not make that advice current.
+
+1. Read the report and resolve its tenant, configured locale, form version, and channel.
+2. Compare the failure mechanism with an existing ticket. A matching cause can have different wording or arrive through another channel.
+3. Keep different causes apart even if their subject lines are identical. Form version and tenant configuration can change the classification.
+4. If the tenant or cause is unknown, investigate before merging. Unknown does not mean duplicate.
+5. Count one report per ID and preserve the intake label as a historical guess. Reconcile the split totals to the source ticket.
+
+<DedupeExplorer />
+
+The explorer shows both kinds of subject-matching error and refuses to merge reports with no tenant on file.
+The [replacement decision proposal](/kb/decisions/0002-dedupe-by-cause/) records this recommendation.
+Decision 0001 remains unchanged as the historical accepted record; desk acceptance of the replacement is still needed.
+
+## Follow-up and limits
+
+Keep the one-day descriptions visible while collecting their original input, timezone, rendered invite, and event timestamp.
+Do not subtract them again from the computed parser group or present a timezone theory as a confirmed third bug.
+Rebuild this page when reports or tenant settings change, and re-read its prose when either the evidence or review status changes.
+The support desk and engineering owners must confirm the fixes against the actual service.
+
+<RenderStamp {signature} />

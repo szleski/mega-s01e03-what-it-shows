@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../_app/immutable/entry/start.D1HzdfF7.js" rel="modulepreload">
+		<link href="../../../_app/immutable/entry/payload.DSmR2FwN.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/CRzLMJPS.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/CptVIHXj.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/CHfFqfNT.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/DQG8lHS1.js" rel="modulepreload">
+		<link href="../../../_app/immutable/entry/app.Z9xi45oQ.js" rel="modulepreload">
+		<link href="../../../_app/immutable/nodes/0.CTf4XHXr.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/DK3Fl9T5.js" rel="modulepreload">
+		<link href="../../../_app/immutable/nodes/4.BxGBVIHW.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/CmXZWmEK.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/DkoUumqI.js" rel="modulepreload">
+		<link href="../../../_app/immutable/chunks/499x6edU.js" rel="modulepreload">
+		<!--e2jw2j--><!----><title>0002 · Merge reports only when the cause matches · support kb</title>
+		<link href="../../../_app/immutable/assets/runbook.COyw0cbZ.css" rel="stylesheet">
+		<link href="../../../_app/immutable/assets/RenderStamp.WePi3wDe.css" rel="stylesheet">
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents"><!--[--><!--[--><!--[0--><!--[--><!--[--><!--[-1--><!--[--><div class="kb svelte-e2jw2j"><header><a class="crumb svelte-e2jw2j" href="/kb">support desk · kb</a> <h1 class="svelte-e2jw2j">0002 · Merge reports only when the cause matches</h1> <p class="meta svelte-e2jw2j"><span>owner <b>szleski</b></span> <span class="status proposed svelte-e2jw2j">proposed</span> <span class="svelte-e2jw2j">reviewed 2026-11-02 · 0 days ago</span></p></header> <!--[-1--><!--]--> <main><p><strong>Proposed on:</strong> 2 November 2026. <strong>Replaces on acceptance:</strong> <a href="/kb/decisions/0001-dedupe-by-subject/">decision 0001</a>.
+Desk acceptance has not been recorded. The accepted historical decision is preserved unchanged.</p> <h2>Context</h2> <p>The <a href="/kb/incidents/4471-review/">incident review</a> shows that one merged ticket contains separate parser and form-hint problems.
+The existing triage prose uses normalized subjects, while its executable examples use tenant configuration and channel.
+This can hide different bugs under one title and split the same bug across different titles.</p> <h2>Proposed decision</h2> <p>Merge reports only when the available evidence establishes the same cause. Resolve tenant configuration and channel first;
+for this product, use the locale order and form version in the supplied cause model. Read bodies for evidence that falls outside that model.
+An unknown tenant or unexplained symptom stays separate for investigation. Deduplicate export rows by report ID before counting.</p> <h2>Consequences</h2> <ul><li>The parser and booking-v3 hint receive separate engineering tickets and separate report counts.</li> <li>Subjects and browser tags help find reports but do not decide cause.</li> <li>Investigation takes more work at intake and prevents a second cause disappearing into a known ticket.</li> <li>Every page distinguishes reported symptoms, model-based classification, verified fixes, and remaining uncertainty.</li> <li>Computable counts stay in components; prose is reviewed against the rendered page and dated.</li></ul> <!--[0--><p class="stamp svelte-1280m42">desk ref <b class="svelte-1280m42">DR-DKNG-7PPY</b></p><!--]--><!----><!----></main> <footer class="svelte-e2jw2j">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!--]--><!--]--><!--]--><!----><!--]--><!--]--><!--]--><!----> <!--[-1--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_e06vjt = {
+						base: new URL("../../..", location).pathname.slice(0, -1),
+						version: "1793620266237"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					import("../../../_app/immutable/entry/start.D1HzdfF7.js").then(async (kit) => {
+						kit.init(__sveltekit_e06vjt);
+						const app = await import("../../../_app/immutable/entry/app.Z9xi45oQ.js");
+						kit.start(app, element, {
+							node_ids: [0, 4],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>

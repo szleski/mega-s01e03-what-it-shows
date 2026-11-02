@@ -1,0 +1,1 @@
+[hint] booking-v3 shows MM/DD/YYYY to day-first tenants — 33 reports from #4471
