@@ -4,7 +4,7 @@ title: '#4471 review · separate the causes before merging'
 owner: szleski
 status: closed
 reviewed: '2026-11-02'
-signature: 'Codex for Szymon Łęski · S01E03 · 2026-11-02'
+signature: 'v1.eyJzdWIiOiIzMzEiLCJhdWQiOiJjaGFsbGVuZ2U6d2hhdC1pdC1zaG93cyIsImlhdCI6MTc5MzYyMDQ5MCwiZXhwIjoxNzkzNzA2ODkwfQ.JGUUMVVNjbZbOGpPRC6NDb2tM-0iLZuuVFEMh1PBBDw'
 ---
 
 <script>

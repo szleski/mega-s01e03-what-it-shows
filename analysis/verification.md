@@ -19,3 +19,5 @@ The first browser interaction exposed a stale preview-server manifest after rebu
 The npm default cache was outside the permitted write area. Installation used a dedicated `/tmp/mega-npm-cache` instead; no permissions were changed. SvelteKit 3 requires inline Vite plugin configuration, so the initial older-style config was replaced before the successful builds. The retained `#lib` alias produces a deprecation notice but resolves the export's existing imports correctly.
 
 This is a local evidence and rendering check. Actual scheduling-service fixes and external publication have not been performed.
+
+Final signature correction: the first claim identified that the course-issued start ticket, rather than an author line, must be the frontmatter signature. Retrieved it through start-challenge, rebuilt both signed pages, and verified the rendered desk reference DR-CWKJ-REZF. The raw start reply and proof are retained only in git-ignored logs/.

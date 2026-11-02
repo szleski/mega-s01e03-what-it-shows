@@ -50,7 +50,7 @@ To serve the committed rendering directly, use `python3 -m http.server 4174 --di
 - Executed the supplied cause model against the tenant directory and reconciled all distinct reports.
 - Checked that repeated IDs carry identical report data.
 - Built and opened the original incident and stale triage pages in the browser before writing the review.
-- Built the new signed pages and confirmed the rendered desk reference `DR-DKNG-7PPY`.
+- Built the new signed pages and confirmed the rendered desk reference `DR-CWKJ-REZF`.
 - Changed the explorer to matching tenant/form paths: it displayed “same cause — merge”. Changing one side to app displayed “different causes — keep apart” despite matching subject and tenant.
 - Confirmed both new pages appear in the KB index.
 - Compared decision 0001 byte-for-byte with the original ZIP.
