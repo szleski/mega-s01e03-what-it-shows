@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 review · separate the causes before merging'
 owner: szleski
-status: reviewed
+status: closed
 reviewed: '2026-11-02'
 signature: 'Codex for Szymon Łęski · S01E03 · 2026-11-02'
 ---
@@ -17,8 +17,9 @@ signature: 'Codex for Szymon Łęski · S01E03 · 2026-11-02'
 
 The [original incident](/kb/incidents/4471/) calls this one known issue with one queued fix.
 Its rendered cause table contradicts that conclusion: the shared parser and the booking form hint are separate problems.
-Each needs its own engineering ticket. This review describes the supplied export through 4 October 2026;
-it does not establish the current state of a live production service or claim that either fix shipped.
+Each cause has its own ticket. This review combines the report export through 4 October 2026
+with the later engineering update on the course page. The dispositions below are reported by the desk;
+they are not independent verification of the production service.
 
 <Callout kind="warn">
 Read the generated evidence before relying on the page's prose. “Known” is a desk status, not proof that all causes have tickets or fixes.
@@ -37,12 +38,15 @@ The calculation follows `uniqueById` and `groupByCause` in `src/lib/kb/causes.ts
 This covers app and email reports, plus form reports through booking-v2. For example, `R-41200`
 describes 7 April becoming 4 July. `R-41205` belongs here because Morrow Tax is configured as `fr-FR`,
 even though its browser reports `en-US` and intake guessed `hint`.
-Correct the parser's explicit date-format contract and verify ambiguous day/month inputs, invalid dates, and month-first controls.
+The engineering update reports this path fixed by `fix(dates): parse dd/mm for eu locales`.
+The ticket retains the acceptance criteria for checking ambiguous day/month inputs, invalid dates, and month-first controls.
 
 **Wrong booking-v3 hint.** For a day-first tenant using booking-v3, the form prints `MM/DD/YYYY`
 while interpreting the typed value using the tenant's convention. Only the form channel takes this path.
 For example, `R-41230` comes through Copper Studio's booking-v3 form (`es-ES`), although intake calls it `parser`.
-Correct the displayed hint and its agreement with validation and parsing. Changing the shared parser alone does not correct misleading form guidance.
+The desk reports this path **won't fix** because the booking-v3 form was retired.
+Retirement removes this reported entry path; it does not mean the hint was corrected.
+Changing the shared parser alone would not have corrected misleading form guidance.
 
 These mechanisms come from the supplied executable model and tenant configuration. The export contains no production parser or form implementation to patch or independently reproduce.
 
@@ -52,7 +56,7 @@ These mechanisms come from the supplied executable model and tenant configuratio
 
 The weekly plot uses `receivedAt` for arrivals and `mergedAt` for desk merges. Reports accumulated before the large July merge.
 An administrative burst must not be described as an incident onset. The export continues receiving reports after the bulk merge;
-the page's confident “one fix queued” wording hid an unresolved second workstream.
+the original page's confident “one fix queued” wording hid a second workstream that later received a different disposition.
 
 ## Triage by cause; keep unknown cases apart
 
@@ -76,6 +80,7 @@ Decision 0001 remains unchanged as the historical accepted record; desk acceptan
 Keep the one-day descriptions visible while collecting their original input, timezone, rendered invite, and event timestamp.
 Do not subtract them again from the computed parser group or present a timezone theory as a confirmed third bug.
 Rebuild this page when reports or tenant settings change, and re-read its prose when either the evidence or review status changes.
-The support desk and engineering owners must confirm the fixes against the actual service.
+The desk's closed status is supported by the later engineering update, not by treating all reports as one repaired cause.
+The one-day descriptions still need evidence before their individual mechanisms can be verified.
 
 <RenderStamp {signature} />

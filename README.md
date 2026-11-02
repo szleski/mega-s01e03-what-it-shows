@@ -13,6 +13,8 @@ Report IDs remove the 15 repeated export rows. Tenant locale, form version and e
 
 The five descriptions marked in `desk-notes.json` remain within the parser count. They deserve investigation, but the export does not establish a third cause. The 2 July bulk merge describes desk activity, not the start of customer impact.
 
+The subsequent course engineering update reports **#4471 closed on 5 October 2026**: parser **fixed** (`fix(dates): parse dd/mm for eu locales`), hint **won't fix** (booking-v3 form retired). The review keeps these outcomes separate; retiring a form is not repairing its hint.
+
 ## Deliverables
 
 - [Signed review source](support-kb/src/routes/kb/incidents/4471-review/+page.svx)
@@ -53,7 +55,7 @@ To serve the committed rendering directly, use `python3 -m http.server 4174 --di
 - Confirmed both new pages appear in the KB index.
 - Compared decision 0001 byte-for-byte with the original ZIP.
 
-The export models the failure mechanisms; it does not contain the production scheduling service. No production bug fix or live-desk acceptance is claimed here.
+The export models the failure mechanisms; it does not contain the production scheduling service. Closure dispositions are reported by the course's engineering update, not independently verified production fixes.
 
 Published with the student's approval in [szleski/mega-s01e03-what-it-shows](https://github.com/szleski/mega-s01e03-what-it-shows).
 Follow-up tickets: [parser #1](https://github.com/szleski/mega-s01e03-what-it-shows/issues/1) and [form hint #2](https://github.com/szleski/mega-s01e03-what-it-shows/issues/2).

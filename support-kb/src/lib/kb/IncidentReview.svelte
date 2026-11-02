@@ -2,6 +2,7 @@
   import reports from '#lib/data/reports-4471.json';
   import notes from '#lib/data/desk-notes.json';
   import tickets from '#lib/data/followup-tickets.json';
+  import engineering from '#lib/data/engineering-update.json';
   import { groupByCause, uniqueById, causeOf, type Report } from '#lib/kb/causes';
   import { tenantOf } from '#lib/kb/locales';
 
@@ -15,6 +16,7 @@
   const preBulk = merged.filter(r => r.receivedAt.slice(0, 10) < bulkDay);
   const labels = { parser: 'Shared parser assumes month first', hint: 'booking-v3 displays the wrong date hint', unplaced: 'Needs investigation' };
   const ticketFor = (cause: string): string | null => tickets[cause as keyof typeof tickets];
+  const outcome = (cause: string) => cause === 'parser' ? engineering.parser : cause === 'hint' ? engineering.hint : null;
   const byMonth = [...new Set(merged.map(r => r.receivedAt.slice(0, 7)))].sort().map(month => ({
     month,
     received: merged.filter(r => r.receivedAt.startsWith(month)).length,
@@ -28,7 +30,7 @@
 
 <div class="scroll">
   <table>
-    <thead><tr><th>Cause</th><th>Reports</th><th>Tenants</th><th>Received</th><th>Follow-up ticket</th></tr></thead>
+    <thead><tr><th>Cause</th><th>Reports</th><th>Tenants</th><th>Received</th><th>Disposition / ticket</th></tr></thead>
     <tbody>
       {#each groups as g (g.cause)}
         <tr>
@@ -36,12 +38,18 @@
           <td><strong>{g.reports.length}</strong></td>
           <td>{g.tenants}</td>
           <td>{g.firstSeen} → {g.lastSeen}</td>
-          <td>{#if ticketFor(g.cause)}<a href={ticketFor(g.cause)}>Open issue</a>{:else}Draft prepared; publication pending{/if}</td>
+          <td><strong>{outcome(g.cause)?.status ?? 'unresolved'}</strong><br />
+            {outcome(g.cause)?.detail ?? 'Investigate'}<br />
+            {#if ticketFor(g.cause)}<a href={ticketFor(g.cause)}>Ticket and closure record</a>{:else}Publication pending{/if}</td>
         </tr>
       {/each}
     </tbody>
   </table>
 </div>
+
+<p><a href={engineering.source}>Course engineering update</a>: source ticket #{engineering.sourceTicket} closed {engineering.closedOn}.
+  Fixed and won't fix are different resolutions. The form's retirement is not a hint correction.
+  These are the desk's reported outcomes, not independent verification of production behavior.</p>
 
 <h3>Intake labels are evidence of the old guess</h3>
 <table>
