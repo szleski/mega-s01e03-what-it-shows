@@ -59,4 +59,5 @@ The export models the failure mechanisms; it does not contain the production sch
 
 Published with the student's approval in [szleski/mega-s01e03-what-it-shows](https://github.com/szleski/mega-s01e03-what-it-shows).
 Follow-up tickets: [parser #1](https://github.com/szleski/mega-s01e03-what-it-shows/issues/1) and [form hint #2](https://github.com/szleski/mega-s01e03-what-it-shows/issues/2).
-Course acceptance is pending.
+The course accepted the tickets and signed page on 2 November 2026. Both tickets are closed with the reported engineering dispositions: parser completed, hint not planned.
+[Saved course debrief](https://hq.mega.dev/challenges/what-it-shows#debrief).
